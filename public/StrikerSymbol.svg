@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!--Generator: Xara Designer (www.xara.com), SVG filter version: 6.6.0.1-->
+<svg fill="none" fill-rule="evenodd" stroke="black" stroke-width="0.501" stroke-linejoin="bevel" stroke-miterlimit="10" font-family="Times New Roman" font-size="16" style="font-variant-ligatures:none" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" overflow="visible" width="17.901pt" height="15.976pt" viewBox="1152.07 -529.379 17.901 15.976">
+ <defs>
+	</defs>
+ <g id="Layer 1" transform="scale(1 -1)">
+  <path d="M 1152.99,528.397 L 1161.02,528.378 L 1169.05,528.358 L 1165.02,521.411 L 1160.99,514.465 L 1156.99,521.43 L 1152.99,528.397 Z" stroke="#ffffff" fill="#ff0000" stroke-width="1.062" stroke-linejoin="miter" marker-start="none" marker-end="none"/>
+  <rect x="1154.058" y="522.923" width="13.922" height="2.316" stroke="#ffffff" fill="#ff0000" stroke-linejoin="miter" stroke-width="0.898"/>
+  <rect x="1159.837" y="525.732" width="2.199" height="3.198" stroke="#ffffff" stroke-width="0.898" fill="#ff0000" stroke-linejoin="miter"/>
+  <rect x="-4.219" y="-4.241" width="8.438" height="8.483" rx="253.478842430369" ry="253.478842430369" transform="translate(1160.93 521.93) rotate(90)" stroke="#ffffff" fill="#ff0000" stroke-linejoin="miter" stroke-width="0.898"/>
+  <text xml:space="preserve" transform="translate(1158.89 519.216) scale(1 -1)" kerning="auto" fill="#ffffff" font-size="7.602" stroke="none" stroke-width="0.19" stroke-linecap="round" stroke-linejoin="round" font-family="Open Sans" font-weight="bold"><tspan x="0" y="0">S</tspan></text>
+ </g>
+</svg>

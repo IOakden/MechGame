@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Kobold Dynamics",
+    "icon": "KoboldLogo.png",
+    "type": "Faction",
+    "description": "A mech part manufacturer specialising in light parts. Based in the system of Yalaris, they recieve advanced lightweight metals like Andalum from the Fulcrum system."
+  },
+  {
+    "name": "Harrison Armory",
+    "icon": "HarrisonArmoryLogo.png",
+    "type": "Faction",
+    "description": "A renowned industrial giant turned militarist dictatorship known for heavy-duty mech frames and advanced weaponry."
+  },
+  {
+    "name": "Jetson Laboritories",
+    "icon": "JetsonLogo.png",
+    "type": "Faction",
+    "description": "A think-tank and research facility, producing advanced mechs and weapons. A focus on elemental research and development."
+  },
+  {
+    "name": "Polaris Corporation",
+    "icon": "PolarisLogo.png",
+    "type": "Faction",
+    "description": "Privately-owned pace exploration and elite haulage firm, based on Fortuna, they are radical growthmongers and frequently compensate lancers for travelling to remote systems for exploration. "
+  },
+  {
+    "name": "Union",
+    "icon": "UnionLogo.png",
+    "type": "Faction",
+    "description": "The largest political faction, owner of nearly all core worlds. A communist beaurocracy manufacturing generalist but not particularly advanced mechs.\n It's core mechs, the Fuji, Matterhorn and Everest are some of the most widely used mechs in Human Space."
+  },
+  {
+    "name": "Striker",
+    "icon": "StrikerSymbol.svg",
+    "type": "Role Class",
+    "description": "Striker mechs are balanced for direct combat, excelling in both offense and defense. They are versatile and reliable in most combat situations."
+  },
+  {
+    "name": "Artillery",
+    "icon": "ArtillerySymbol.svg",
+    "type": "Role Class",
+    "description": "Artillery mechs specialize in long-range attacks and area control, providing heavy fire support from a distance."
+  },
+  {
+    "name": "Utility",
+    "icon": "UtilitySymbol.svg",
+    "type": "Role Class",
+    "description": "Utility mechs focus on support, electronic warfare, and battlefield control, offering unique abilities to aid allies and disrupt enemies."
+  },
+  {
+    "name": "Light",
+    "icon": "LightSymbol.svg",
+    "type": "Weight Class",
+    "description": "Light mechs are fast and agile, excelling at hit-and-run tactics and reconnaissance. They have limited armor and firepower but are difficult to pin down."
+  },
+  {
+    "name": "Medium",
+    "icon": "MediumSymbol.svg",
+    "type": "Weight Class",
+    "description": "Medium mechs offer a balance between speed, armor, and firepower. They are versatile and adaptable to a wide range of combat roles."
+  },
+  {
+    "name": "Heavy",
+    "icon": "HeavySymbol.svg",
+    "type": "Weight Class",
+    "description": "Heavy mechs are slow but heavily armored and armed. They excel at frontline combat and can absorb significant damage while delivering powerful attacks."
+  },
+  {
+    "name": "Super Heavy",
+    "icon": "SuperheavySymbol.svg",
+    "type": "Weight Class",
+    "description": "Super Heavy mechs are rare, massive war machines with unmatched durability and firepower, but are extremely slow and costly to deploy."
+  }
+] 
