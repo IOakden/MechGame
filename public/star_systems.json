@@ -18,8 +18,14 @@
     { "name": "Pollux", "type": "Yellow Main", "x": 4700, "y": 3800 },
     { "name": "Partisan", "type": "White Main", "x": 5100, "y": 3800 },
     { "name": "Goldin", "type": "Yellow Main", "x": 5600, "y": 3950 },
-    { "name": "Olcraff", "type": "Red Dwarf", "x": 6000, "y": 4150 },
-    { "name": "Fulcrum", "type": "White Main", "x": 6300, "y": 4600 }
+    { "name": "Corune", "type": "White Main", "x": 5900, "y": 3750 },
+    { "name": "Olcraff", "type": "Red Dwarf", "x": 5900, "y": 4250 },
+    { "name": "Fulcrum", "type": "White Main", "x": 6300, "y": 4600 },
+    { "name": "Ivitan", "type": "White Main", "x": 4150, "y": 3900 },
+    { "name": "Karth", "type": "White Main", "x": 3750, "y": 4600 },
+    { "name": "Arcadia", "type": "Yellow Main", "x": 3500, "y": 4100 },
+    { "name": "Grinfeldt", "type": "Red Dwarf", "x": 3350, "y": 4800 },
+    { "name": "Reach", "type": "Red Dwarfs", "x": 3700, "y": 5500 }
   ],
   "links": [
     ["Proxima", "Centa"],
@@ -40,12 +46,18 @@
     ["Pollux", "Partisan"],
     ["Partisan", "Goldin"],
     ["Goldin", "Olcraff"],
+    ["Corune", "Goldin"],
     ["Olcraff", "Fulcrum"],
-    ["Fulcrum", "Yalaris"]
+    ["Fulcrum", "Yalaris"],
+    ["Karth", "Ivitan"],
+    ["Arcadia", "Karth"],
+    ["Grinfeldt", "Arcadia"],
+    ["Calliope", "Reach"]
   ],
   "regions": [
     { "name": "Core Worlds", "systems": ["Proxima", "Centa", "Sol", "Barnard", "Luyten", "Procyon"] },
     { "name": "Inner Rim", "systems": ["Vega", "Altair", "Novas", "Yalaris", "Calliope", "Acrux", "Altum", "Umara", "Wulften"] },
-    { "name": "Trade Spine", "systems": ["Pollux", "Partisan", "Goldin", "Olcraff", "Fulcrum"] }
+    { "name": "Trade Spine", "systems": ["Pollux", "Partisan", "Goldin", "Corune", "Olcraff", "Fulcrum"] },
+    { "name": "Outer Rim", "systems": ["Reach", "Karth", "Ivitan", "Arcadia", "Grinfeldt"] }
   ]
 } 

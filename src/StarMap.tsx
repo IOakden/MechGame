@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import RegionPolygon from './RegionPolygon';
 import Star from './Star';
+import StarField from './StarField';
 import { convexHull, expandPolygon, catmullRom2bezier, expandPolyline, sampleCatmullRom, expandPolylineWithCaps } from './utils/geometry';
 
 const starColors: Record<string, { core: string; mid: string; glow: string }> = {
@@ -19,6 +20,7 @@ const StarMap: React.FC = () => {
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [dragging, setDragging] = useState(false);
+  const [hasMoved, setHasMoved] = useState(false);
   const dragStart = useRef({ x: 0, y: 0 });
   const panStart = useRef({ x: 0, y: 0 });
   const [systems, setSystems] = useState<StarSystem[]>([]);
@@ -29,6 +31,7 @@ const StarMap: React.FC = () => {
   const [worlds, setWorlds] = useState<any[]>([]);
   const [selectedWorld, setSelectedWorld] = useState<any | null>(null);
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null);
+  const [regionsVisible, setRegionsVisible] = useState(true);
 
   // Use explicit coordinates for positions if present
   useEffect(() => {
@@ -76,6 +79,15 @@ const StarMap: React.FC = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (dragging) {
+        // Check if mouse has moved significantly (more than 3 pixels)
+        const moveDistance = Math.sqrt(
+          Math.pow(e.clientX - dragStart.current.x, 2) + 
+          Math.pow(e.clientY - dragStart.current.y, 2)
+        );
+        if (moveDistance > 3) {
+          setHasMoved(true);
+        }
+        
         setPan({
           x: panStart.current.x + (e.clientX - dragStart.current.x),
           y: panStart.current.y + (e.clientY - dragStart.current.y),
@@ -83,8 +95,10 @@ const StarMap: React.FC = () => {
       }
     };
     const handleMouseUp = (e: MouseEvent) => {
-      if (dragging && (e.button === 1 || e.button === 2)) {
+      if (dragging && (e.button === 0 || e.button === 1 || e.button === 2)) {
         setDragging(false);
+        // Reset hasMoved after a short delay to allow for click detection
+        setTimeout(() => setHasMoved(false), 100);
       }
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -128,6 +142,46 @@ const StarMap: React.FC = () => {
       setDragging(true);
       dragStart.current = { x: e.clientX, y: e.clientY };
       panStart.current = { ...pan };
+    }
+    // Add left-click panning for laptop users
+    if (e.button === 0) {
+      setDragging(true);
+      dragStart.current = { x: e.clientX, y: e.clientY };
+      panStart.current = { ...pan };
+    }
+  };
+
+  const handleZoomIn = () => {
+    const zoomFactor = 1.08;
+    const prevZoom = zoom;
+    const newZoom = Math.min(zoom * zoomFactor, 8);
+    if (newZoom !== prevZoom) {
+      const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      // Find world coordinates at screen center before zoom
+      const worldX = (center.x - center.x - pan.x) / prevZoom + center.x;
+      const worldY = (center.y - center.y - pan.y) / prevZoom + center.y;
+      // After zoom, keep worldX/worldY at screen center
+      const newPanX = center.x - center.x - (worldX - center.x) * newZoom;
+      const newPanY = center.y - center.y - (worldY - center.y) * newZoom;
+      setPan({ x: newPanX, y: newPanY });
+      setZoom(newZoom);
+    }
+  };
+
+  const handleZoomOut = () => {
+    const zoomFactor = 1.08;
+    const prevZoom = zoom;
+    const newZoom = Math.max(zoom / zoomFactor, 0.2);
+    if (newZoom !== prevZoom) {
+      const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+      // Find world coordinates at screen center before zoom
+      const worldX = (center.x - center.x - pan.x) / prevZoom + center.x;
+      const worldY = (center.y - center.y - pan.y) / prevZoom + center.y;
+      // After zoom, keep worldX/worldY at screen center
+      const newPanX = center.x - center.x - (worldX - center.x) * newZoom;
+      const newPanY = center.y - center.y - (worldY - center.y) * newZoom;
+      setPan({ x: newPanX, y: newPanY });
+      setZoom(newZoom);
     }
   };
 
@@ -270,6 +324,7 @@ const StarMap: React.FC = () => {
   // Optional: region label position overrides (world coordinates)
   const regionLabelPositions: Record<string, { x: number; y: number }> = {
     'Inner Rim': { x: 5050, y: 4600 }, // Move label higher up
+    'Outer Rim': { x: 3550, y: 4600 }, // Move label 300 units left of calculated position
   };
 
   // Precompute region polygon and label data
@@ -280,6 +335,7 @@ const StarMap: React.FC = () => {
     let color: string | undefined = undefined;
     if (region.name === 'Core Worlds') color = '#00ff99'; // green
     if (region.name === 'Trade Spine') color = '#4fffff'; // blue for Trade Spine
+    if (region.name === 'Outer Rim') color = '#ff6b35'; // orange for Outer Rim
     // Inner Rim uses default (yellow)
     // Compute label position and width
     let labelX: number, labelY: number;
@@ -287,8 +343,8 @@ const StarMap: React.FC = () => {
     let labelOpacity = 1;
     let baseFontSize = 48;
     let polygonPoints: { x: number; y: number }[] = [];
-    if (region.name === 'Trade Spine' && regionStarPoints.length >= 2) {
-      // Use ribbon for Trade Spine, follow region.systems order
+    if ((region.name === 'Trade Spine' || region.name === 'Outer Rim') && regionStarPoints.length >= 2) {
+      // Use ribbon for Trade Spine and Outer Rim, follow region.systems order
       const smoothLine = sampleCatmullRom(regionStarPoints, 8);
       polygonPoints = expandPolylineWithCaps(smoothLine, 260, 1, 32);
       (polygonPoints as any).__ribbon = true;
@@ -333,10 +389,11 @@ const StarMap: React.FC = () => {
 
   // Render region polygons (no label)
   const regionPolygons = sortedRegionPolygonData
-    .filter(({ region }) => !selectedRegion || region.name === selectedRegion)
+    .filter(({ region }) => regionsVisible && (!selectedRegion || region.name === selectedRegion))
     .map(({ region, polygonPoints, color }) => {
       let regionColor = color;
       if (region.name === 'Trade Spine') regionColor = '#4fffff'; // blue for Trade Spine
+      if (region.name === 'Outer Rim') regionColor = '#ff6b35'; // orange for Outer Rim
       if (!polygonPoints || polygonPoints.length < 3) return null;
       return (
         <RegionPolygon
@@ -346,10 +403,12 @@ const StarMap: React.FC = () => {
           zoom={zoom}
           label={region.name}
           onClick={() => {
-            setSidebarOpen(true);
-            setSelectedStar(null); // region selected
-            setSelectedRegion(region.name);
-            setSelectedWorld(null); // always clear selectedWorld
+            if (!hasMoved) {
+              setSidebarOpen(true);
+              setSelectedStar(null); // region selected
+              setSelectedRegion(region.name);
+              setSelectedWorld(null); // always clear selectedWorld
+            }
           }}
           labelWorldPos={regionLabelPositions[region.name]}
           color={regionColor}
@@ -360,10 +419,11 @@ const StarMap: React.FC = () => {
 
   // Render region labels above all stars
   const regionLabels = sortedRegionPolygonData
-    .filter(({ region }) => !selectedRegion || region.name === selectedRegion)
+    .filter(({ region }) => regionsVisible && (!selectedRegion || region.name === selectedRegion))
     .map(({ region, labelX, labelY, regionWidth, color, labelOpacity, baseFontSize }) => {
       let regionColor = color;
       if (region.name === 'Trade Spine') regionColor = '#4fa3ff';
+      if (region.name === 'Outer Rim') regionColor = '#ff8c42';
       // Use label position override if present
       let x = labelX, y = labelY;
       if (regionLabelPositions[region.name]) {
@@ -463,8 +523,8 @@ const StarMap: React.FC = () => {
       else if (selectedRegion) title = selectedRegion;
       else title = 'Region';
       topBar = (
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', marginTop: 0, marginBottom: 8, minHeight: 48 }}>
-          <span style={{ fontSize: 32, fontWeight: 700, letterSpacing: 1, fontFamily: 'Aldrich, sans-serif' }}>{title}</span>
+        <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', marginTop: 16, marginBottom: 8, minHeight: 48 }}>
+          <span style={{ fontSize: 32, fontWeight: 700, letterSpacing: 1, fontFamily: 'Aldrich, sans-serif', marginLeft: 16 }}>{title}</span>
           <button
             onClick={() => { setSidebarOpen(false); setSelectedWorld(null); setSelectedRegion(null); }}
             style={{
@@ -575,6 +635,8 @@ const StarMap: React.FC = () => {
       onMouseDown={handleMouseDown}
       onContextMenu={(e) => e.preventDefault()}
     >
+      {/* StarField Background */}
+      <StarField pan={pan} zoom={zoom} />
       {/* SVG for region polygons and lines */}
       <svg
         width={window.innerWidth}
@@ -623,10 +685,12 @@ const StarMap: React.FC = () => {
             zoom={zoom}
             selected={!!selectedStar && selectedStar.name === system.name}
             onClick={() => {
-              setSidebarOpen(true);
-              setSelectedStar(system);
-              setSelectedRegion(null);
-              setSelectedWorld(null); // always clear selectedWorld
+              if (!hasMoved) {
+                setSidebarOpen(true);
+                setSelectedStar(system);
+                setSelectedRegion(null);
+                setSelectedWorld(null); // always clear selectedWorld
+              }
             }}
           />
         );
@@ -655,6 +719,118 @@ const StarMap: React.FC = () => {
       >
         {/* Sidebar content */}
         {sidebarOpen && sidebarContent}
+      </div>
+      {/* Zoom Controls */}
+      <div
+        style={{
+          position: 'fixed',
+          bottom: 24,
+          left: 24,
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 8,
+          zIndex: 50,
+        }}
+      >
+        <button
+          onClick={handleZoomIn}
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: 'none',
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#ffe066',
+            fontSize: 24,
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(4px)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          aria-label="Zoom In"
+        >
+          +
+        </button>
+        <button
+          onClick={handleZoomOut}
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: 'none',
+            background: 'rgba(0, 0, 0, 0.7)',
+            color: '#ffe066',
+            fontSize: 24,
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(4px)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.8)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          aria-label="Zoom Out"
+        >
+          −
+        </button>
+        <button
+          onClick={() => setRegionsVisible(!regionsVisible)}
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            border: 'none',
+            background: regionsVisible ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.5)',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.3)',
+            transition: 'all 0.2s ease',
+            backdropFilter: 'blur(4px)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = regionsVisible ? 'rgba(0, 0, 0, 0.9)' : 'rgba(0, 0, 0, 0.6)';
+            e.currentTarget.style.transform = 'scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = regionsVisible ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.5)';
+            e.currentTarget.style.transform = 'scale(1)';
+          }}
+          aria-label={regionsVisible ? "Hide Regions" : "Show Regions"}
+        >
+          <img 
+            src="/RegionSymbol.svg" 
+            alt="Regions" 
+            style={{
+              width: 24,
+              height: 24,
+              filter: regionsVisible ? 'brightness(0) saturate(100%) invert(84%) sepia(60%) saturate(250%) hue-rotate(-15deg) brightness(1.0)' : 'brightness(0) saturate(100%) invert(84%) sepia(60%) saturate(250%) hue-rotate(-15deg) brightness(0.3)',
+              transition: 'filter 0.2s ease',
+            }}
+          />
+        </button>
       </div>
       {/* Star glow animation style */}
       <style>{`
