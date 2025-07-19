@@ -27,7 +27,7 @@
     "name": "Union",
     "icon": "UnionLogo.png",
     "type": "Faction",
-    "description": "The largest political faction, owner of nearly all core worlds. A communist beaurocracy manufacturing generalist but not particularly advanced mechs.\n It's core mechs, the Fuji, Matterhorn and Everest are some of the most widely used mechs in Human Space."
+    "description": "Humanity wrestled for millions of years under the same burden of the common terrestrial animal. Circa 12,000 BC, they began to selectively grow plants for produce. Successive ages of civilisations led to metalwork, which culminated in the development of machines. In 1961 AD, the first man left Terra. By 2145 AD, mankind had permanent colonies on the moon. By 2350 AD, mankind had left their home star system, Sol. Ages of war, strife and collapse led Terra and Ares to their demise. Mankind persevered, and emerged from Enclave bunkers and used preserved technologies in the vaults of Terra. They founded Union on 0 U. Union is a communist beaurocracy manufacturing generalist but not particularly advanced mechs. It's core mechs, the Fuji, Matterhorn and Everest are some of the most widely used mechs in Human Space."
   },
   {
     "name": "Striker",
@@ -70,5 +70,143 @@
     "icon": "SuperheavySymbol.svg",
     "type": "Weight Class",
     "description": "Super Heavy mechs are rare, massive war machines with unmatched durability and firepower, but are extremely slow and costly to deploy."
+  },
+  {
+    "name": "Core Worlds",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "The core worlds, population centers with significant history of human habitation, located in Union Space. It includes the systems of Sol, Centa, Proxima, Barnard, Procyon and Luyten."
+  },
+  {
+    "name": "Inner Rim",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "The region of space firmly controlled by Union, just outside the Core Worlds. Sometimes called the Colonies. It includes the systems of Acrux, Umara, Altair, Yalaris, Wulften, Vega, Altum, Novas and Calliope."
+  },
+  {
+    "name": "Outer Rim",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "Those colonies further out from the Core Worlds, which are still accessible via Hypergates. The Outer Rim links Union Space to Karrakin Space. It includes the systems of Karth, Grinfeldt, Reach, Arcadia and Ivitan."
+  },
+  {
+    "name": "Trade Spine",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "The Goldin Trade Spine, located in the Galactic Northeast of the Outer Rim, is a highly travelled Hypergate route frequented by merchants due to the present natural resources and trade infrastructure of the region. It includes the systems of Pollux, Partisan, Goldin, Corune, Olcraff and Fulcrum."
+  },
+  {
+    "name": "The Frontier",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "A vast expanse of nearly or entirely uninhabited worlds. Connects the Wulften System to the Andaluse System via the Hensik Route of Hypergates. It is usually considered to include the systems of Sirius, Ventra, Calypso, Trigan, Eduu, Varlush, Zagreb, Thundt and sometimes Andaluse."
+  },
+  {
+    "name": "Karrakin Space",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "The ancient region of space gradually colonised by the Karrakins. Contains the systems of Karrakis, Foralis, Mantra, Apollo, Miru, Trappist."
+  },
+  {
+    "name": "Harrison Space",
+    "icon": "RegionSymbol.svg",
+    "type": "Region",
+    "description": "The region of outer space ruled by Harrison Armories. Contains the systems of Helgar and Caerus."
+  },
+  {
+    "name": "Terra",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Sol",
+    "region": "Core Worlds",
+    "description": "Terra, also known as Earth or Cradle, is the homeworld of the human race. It is the most populous world in the Sol system, with a population of 7 billion. It is the symbolic capital of Union, and is one of the two most prestigious worlds in mapped space, the other being Karrakis. Earth is heavily controlled to ensure its state of nature is preserved, and almost never licences new construction projects. Ships are not permitted to land on Terra, and must first dock at a spaceport. Many ruins of past human civilisations can be found overgrown in the wilderness of the planet."
+  },
+  {
+    "name": "Ares",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Sol",
+    "region": "Core Worlds",
+    "description": "Mars, officially known as Ares, is the second most populous world in the Sol system. It is the homeworld of the Martian people, also colloquially called Cydonians. A forge world, Mars' urban centers are largely underground surrounding foundries which construct most of the mechs used in the Sol system."
+  },
+  {
+    "name": "Eden",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Andaluse",
+    "region": "Union Space",
+    "description": "Eden, in the Andaluse System, is a world full of lush rainforests and rolling hills. It's verdant paradise is punctuated by shining rivers of liquid erezene. "
+  },
+  {
+    "name": "Barnard",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Barnard",
+    "region": "Core Worlds, Union Space",
+    "description": "A thriving mercantile world, Barnard Prime is a hub of trade and commerce. It is the capital of the Barnard system, and is home to the Barnard Prime fleet. It is a major port city, and is home to the Barnard Prime Auxiliary."
+  },
+  {
+    "name": "Proxima",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Proxima",
+    "region": "Core Worlds",
+    "description": "A highly populated ecumenopolis, Proxima is a center for commerce, finance and industry constructed in its modern form in 130 U. It is home to the Cosimo Opticon, a massive orbital factory and research facility. Its far side, Yimtess, is known as a music hot-spot. It is noted for having a diverse and culture-rich population, which numbers in the billions."
+  },
+  {
+    "name": "Reach",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Reach",
+    "region": "Outer Rim",
+    "description": "A world of vast deserts and towering mountains, Reach is a world of great beauty and mystery set between Union and Karrakin Space."
+  },
+  {
+    "name": "Grinfeldt",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Proxima",
+    "region": "Outer Rim",
+    "description": "A military planet orbiting a dying binary system, Grinfedlt is mostly a desolute nuclear wasteland, with almost no permanent population. Named originally for an early Union explorer, it is now known as a graveyard of mechs, with many scavengers visiting to loot valuable parts."
+  },
+  {
+    "name": "Haven",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Centa",
+    "region": "Core Worlds",
+    "description": "A garden world, being the galactic center for life sciences research. It is home to the Haven Institute, a major scientific forum and political caucus. It has a population cap of 1 billion, which must reside in designated arcologies."
+  },
+  {
+    "name": "Toliman",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Centa",
+    "region": "Core Worlds",
+    "description": "Toliman is a city planet and metro world orbiting Alpha Centauri. It enjoys political power within Union as a relatively ancient ally of the government."
+  },
+  {
+    "name": "Vargoss",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Trigan",
+    "region": "The Frontier",
+    "description": "A desert planet, a sea of vast gray-orange dunes."
+  },
+  {
+    "name": "Karrakis",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Karrakis",
+    "region": "Karrakin Space",
+    "description": "The jewel of the Karrakin Empire, believed by many to be the true spiritual home of humanity. Survivors of the Collapse, the Karrakin's ancestors were highly hierarchical and militaristic. Home of the House of Order, which resides in the Great Diamond Palace of Karrakis: an incomprehensibly large and decadant temple to the Emperor's ancestors."
+  },
+  {
+    "name": "Garont",
+    "icon": "WorldSymbol.svg",
+    "type": "World",
+    "system": "Foralis",
+    "region": "Karrakin Space",
+    "description": "The jewel of the Karrakin Empire, believed by many to be the true spiritual home of humanity. Survivors of the Collapse, the Karrakin's ancestors were highly hierarchical and militaristic. Home of the House of Order, which resides in the Great Diamond Palace of Karrakis: an incomprehensibly large and decadant temple to the Emperor's ancestors."
   }
 ] 

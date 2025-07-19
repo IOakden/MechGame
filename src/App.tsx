@@ -1,11 +1,12 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 import './index.css';
 import Livery from './Livery';
 import Inventory from './Inventory';
 import Tooltip from './Tooltip';
 import type { Item, DragSource, SlotType, Part, WeightClass, RoleClass } from './types/types';
+import StarMap from './StarMap';
 
 const INVENTORY_SIZE = 9;
 const LEFT_SLOTS_SIZE = 3;
@@ -32,6 +33,7 @@ function Home() {
       <div style={{ display: 'flex', gap: 48 }}>
         <button style={{ fontSize: 32, padding: '24px 64px' }} onClick={() => navigate('/livery')}>Livery</button>
         <button style={{ fontSize: 32, padding: '24px 64px' }} onClick={() => navigate('/codex')}>Codex</button>
+        <button style={{ fontSize: 32, padding: '24px 64px', background: 'linear-gradient(90deg, #222, #111 60%, #ffe066 100%)', color: '#ffe066', boxShadow: '0 0 16px 2px #ffe06644' }} onClick={() => navigate('/starmap')}>Star Map</button>
       </div>
     </div>
   );
@@ -186,7 +188,31 @@ function CodexPage() {
               <span style={{ fontWeight: 800, fontSize: 32, fontFamily: 'Aldrich, sans-serif' }}>{selected.name}</span>
             </div>
             {/* Type pinned left under name/icon */}
-            <div style={{ fontSize: 13, opacity: 0.7, fontWeight: 600, textTransform: 'uppercase', margin: '8px 0 16px 0', alignSelf: 'flex-start', fontFamily: 'Lato, sans-serif' }}>{selected.type}</div>
+            <div style={{ fontSize: 13, opacity: 0.7, fontWeight: 600, textTransform: 'uppercase', margin: '8px 0 0 0', alignSelf: 'flex-start', fontFamily: 'Lato, sans-serif' }}>{selected.type}</div>
+            {/* Stellographical info for Worlds */}
+            {selected.type === 'World' && (selected.system || selected.region) && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 18,
+                margin: '8px 0 16px 0',
+                alignSelf: 'flex-start',
+                fontFamily: 'Lato, sans-serif',
+                fontSize: 15,
+                fontWeight: 600,
+                color: '#fff',
+                background: 'rgba(40,60,100,0.18)',
+                borderRadius: 6,
+                padding: '6px 18px',
+                boxShadow: '0 1px 4px rgba(0,0,0,0.08)'
+              }}>
+                <span style={{ color: '#4fa3ff', fontWeight: 700, marginRight: 4 }}>System</span>
+                <span style={{ color: '#fff', marginRight: 16 }}>{selected.system || '-'}</span>
+                <span style={{ color: '#4fa3ff', fontWeight: 700, marginRight: 4 }}>Region</span>
+                <span style={{ color: '#fff' }}>{selected.region || '-'}</span>
+              </div>
+            )}
             {/* Description in black box */}
             <div style={{
               background: '#000',
@@ -200,6 +226,53 @@ function CodexPage() {
               marginBottom: 32,
               fontFamily: 'Lato, sans-serif'
             }}>{selected.description}</div>
+            {/* Worlds in this Region */}
+            {selected.type === 'Region' && (
+              <div style={{ width: '100%', margin: '0 0 24px 0' }}>
+                <div style={{
+                  background: '#000',
+                  color: '#fff',
+                  borderRadius: 8,
+                  padding: '0',
+                  fontFamily: 'Lato, sans-serif',
+                  maxHeight: 380,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  minHeight: 0,
+                  boxSizing: 'border-box',
+                  marginBottom: 8,
+                  width: '100%'
+                }}>
+                  <div style={{ maxHeight: 380, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 8, padding: '0 0 16px 0', minHeight: 0 }}>
+                    {entries.filter(e => e.type === 'World' && typeof e.region === 'string' && e.region.toLowerCase().includes(selected.name.toLowerCase())).map(world => (
+                      <div
+                        key={world.name}
+                        onClick={() => setSelected(world)}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 16,
+                          padding: '12px 24px',
+                          cursor: 'pointer',
+                          background: selected && selected.name === world.name ? '#333' : 'none',
+                          borderLeft: selected && selected.name === world.name ? '4px solid #4fa3ff' : '4px solid transparent',
+                          transition: 'background 0.2s, border 0.2s',
+                          minHeight: 64,
+                          height: 64,
+                          borderRadius: 6,
+                        }}
+                      >
+                        <img src={world.icon} alt={world.name} style={{ width: 40, height: 40, objectFit: 'contain', background: '#222', borderRadius: 8 }} />
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
+                          <div style={{ fontWeight: 700, fontSize: 18, lineHeight: 1, fontFamily: 'Aldrich, sans-serif' }}>{world.name}</div>
+                          <div style={{ fontSize: 13, opacity: 0.7, textTransform: 'uppercase', fontWeight: 600, marginTop: 2, fontFamily: 'Lato, sans-serif' }}>{world.system}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -525,6 +598,7 @@ function App() {
           </div>
         } />
         <Route path="/codex" element={<CodexPage />} />
+        <Route path="/starmap" element={<StarMap />} />
       </Routes>
     </>
   );

@@ -1,0 +1,51 @@
+{
+  "systems": [
+    { "name": "Proxima", "type": "Red Dwarf", "x": 4600, "y": 5150 },
+    { "name": "Centa", "type": "Yellow Main", "x": 4700, "y": 5200 },
+    { "name": "Sol", "type": "Yellow Main", "x": 5000, "y": 5000 },
+    { "name": "Barnard", "type": "Red Dwarf", "x": 5100, "y": 5400 },
+    { "name": "Luyten", "type": "Red Dwarf", "x": 5350, "y": 5150 },
+    { "name": "Procyon", "type": "White Main", "x": 5200, "y": 5100 },
+    { "name": "Vega", "type": "White Main", "x": 4700, "y": 4200 },
+    { "name": "Altair", "type": "White Main", "x": 4500, "y": 4700 },
+    { "name": "Novas", "type": "Red Dwarf", "x": 5200, "y": 4700 },
+    { "name": "Yalaris", "type": "White Main", "x": 6000, "y": 4750 },
+    { "name": "Calliope", "type": "White Main", "x": 4100, "y": 5000 },
+    { "name": "Acrux", "type": "White Main", "x": 4400, "y": 5400 },
+    { "name": "Altum", "type": "Red Dwarf", "x": 4500, "y": 5650 },
+    { "name": "Umara", "type": "White Main", "x": 4700, "y": 5700 },
+    { "name": "Wulften", "type": "Red Dwarf", "x": 6000, "y": 5700 },
+    { "name": "Pollux", "type": "Yellow Main", "x": 4700, "y": 3800 },
+    { "name": "Partisan", "type": "White Main", "x": 5100, "y": 3800 },
+    { "name": "Goldin", "type": "Yellow Main", "x": 5600, "y": 3950 },
+    { "name": "Olcraff", "type": "Red Dwarf", "x": 6000, "y": 4150 },
+    { "name": "Fulcrum", "type": "White Main", "x": 6300, "y": 4600 }
+  ],
+  "links": [
+    ["Proxima", "Centa"],
+    ["Centa", "Sol"],
+    ["Sol", "Procyon"],
+    ["Sol", "Barnard"],
+    ["Barnard", "Luyten"],
+    ["Calliope", "Proxima"],
+    ["Altair", "Proxima"],
+    ["Altair", "Vega"],
+    ["Acrux", "Centa"],
+    ["Altum", "Umara"],
+    ["Umara", "Centa"],
+    ["Wulften", "Barnard"],
+    ["Novas", "Procyon"],
+    ["Yalaris", "Procyon"],
+    ["Vega", "Pollux"],
+    ["Pollux", "Partisan"],
+    ["Partisan", "Goldin"],
+    ["Goldin", "Olcraff"],
+    ["Olcraff", "Fulcrum"],
+    ["Fulcrum", "Yalaris"]
+  ],
+  "regions": [
+    { "name": "Core Worlds", "systems": ["Proxima", "Centa", "Sol", "Barnard", "Luyten", "Procyon"] },
+    { "name": "Inner Rim", "systems": ["Vega", "Altair", "Novas", "Yalaris", "Calliope", "Acrux", "Altum", "Umara", "Wulften"] },
+    { "name": "Trade Spine", "systems": ["Pollux", "Partisan", "Goldin", "Olcraff", "Fulcrum"] }
+  ]
+} 
